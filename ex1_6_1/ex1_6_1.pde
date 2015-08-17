@@ -29,14 +29,27 @@ void setup () {
 
 
 
-
+float t = 3;
 void draw() {
 
 
-    for(int cnt=0; cnt < walkerLength; cnt++) {
-        walkArr[cnt].step();
-        walkArr[cnt].display();
-    }
+    float x = noise(t);
+    println("x: "+x);
+    ellipse(t*10, x* 200, 16, 16);
+
+
+    t += 0.1;
+    // t += 0.05;
+    // t += 0.02;
+    // t += 0.01;
+    // t += 0.001;
+
+
+
+    // for(int cnt=0; cnt < walkerLength; cnt++) {
+    //     walkArr[cnt].step();
+    //     walkArr[cnt].display();
+    // }
 
 }
 
