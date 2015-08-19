@@ -5,8 +5,9 @@ int stageSize = 500;
 int stageWid = stageSize;
 int stageHei = stageSize;
 
+int moverLen = 100;
+Mover[] mover = new Mover[moverLen];
 
-Mover mover;
 
 void setup () {
     //config
@@ -14,8 +15,24 @@ void setup () {
 
     background(255);
 
+    for (int cnt=0; cnt<moverLen; cnt++) {
+        mover[cnt] = new Mover();
+    }
 
-    mover = new Mover();
+    PVector v = new PVector(1, 5);
+    PVector u = PVector.mult(v, 2);
+    PVector w = PVector.sub(v, u);
+    println("w: "+w);
+
+    w.div(3);
+
+    println("w: "+w);
+
+
+
+
+
+
 }
 
 
@@ -24,85 +41,26 @@ void draw() {
     // リセット処理
     background(255);
 
-    mover.update();
-    mover.checkEdges();
-    mover.display();
-
-}
-
-class PVector {
-    float x;
-    float y;
-
-    // 初期化
-    PVector(float x_, float y_) {
-        x = x_;
-        y = y_;
-    }
-
-    // PVector同士の加算
-    void add(PVector v) {
-        x = x + v.x;
-        y = y + v.y;
-    }
-
-    // PVector同士の減算
-    void sub(PVector v) {
-        x = x - v.x;
-        y = y - v.y;
-    }
-
-    // PVectorの乗算
-    // 乗算では、ベクトルの書く要素に数値を掛ける
-    void mult(float n) {
-        x = x * n;
-        y = y * n;
-    }
-
-    // PVectorの除算
-    void div(float n) {
-        x = x / n;
-        y = y / n;
-    }
-
-    // ベクトルの大きさ
-    float mag() {
-        return sqrt(x * x + y * y);
-    }
-
-    // ベクトルの正規化 単位ベクトルの生成
-    void normalize() {
-        float m = mag();
-        if ( m != 0 ) {
-            div(m);
-        }
-    }
-
-    // 速度ベクトルの大きさを制限する
-    void limit( float max ) {
 
 
-        if ( this.mag() > max ) {
-            this.normalize();
-            this.mult(max);
-        }
-    }
-
-}
-
-
-
-void keyPressed() {
-    println("keyCode: "+keyCode);
-
-    if ( keyCode == 38 ) {
-        mover.acceleration.y -= 0.001;
-    }
-    else if ( keyCode == 40 ) {
-        mover.acceleration.y += 0.001;
-
+    for (int cnt=0; cnt<moverLen; cnt++) {
+        mover[cnt].update();
+        mover[cnt].checkEdges();
+        mover[cnt].display();
     }
 }
+
+// void keyPressed() {
+//     println("keyCode: "+keyCode);
+
+//     if ( keyCode == 38 ) {
+//         mover.acceleration.y -= 0.001;
+//     }
+//     else if ( keyCode == 40 ) {
+//         mover.acceleration.y += 0.001;
+
+//     }
+// }
 
 
 // １ 位置に速度を加算
@@ -129,6 +87,10 @@ class Mover {
 
     // Moverを動かす
     void update() {
+
+        acceleration = PVector.random2D();
+        acceleration.mult( random(2) );
+
         // 運動アルゴリズムのコードが２行に
         velocity.add(acceleration);
         velocity.limit(10);
@@ -178,6 +140,74 @@ class Mover {
 
 }
 
+
+
+
+// static class PVector {
+//     float x;
+//     float y;
+
+//     // 初期化
+//     PVector(float x_, float y_) {
+//         x = x_;
+//         y = y_;
+//     }
+
+//     // PVector同士の加算
+//     void add(PVector v) {
+//         x = x + v.x;
+//         y = y + v.y;
+//     }
+
+//     // PVector同士の減算
+//     void sub(PVector v) {
+//         x = x - v.x;
+//         y = y - v.y;
+//     }
+
+//     // PVectorの乗算
+//     // 乗算では、ベクトルの書く要素に数値を掛ける
+//     void mult(float n) {
+//         x = x * n;
+//         y = y * n;
+//     }
+
+//     // PVectorの除算
+//     void div(float n) {
+//         x = x / n;
+//         y = y / n;
+//     }
+
+//     // ベクトルの大きさ
+//     float mag() {
+//         return sqrt(x * x + y * y);
+//     }
+
+//     // ベクトルの正規化 単位ベクトルの生成
+//     void normalize() {
+//         float m = mag();
+//         if ( m != 0 ) {
+//             div(m);
+//         }
+//     }
+
+//     // 速度ベクトルの大きさを制限する
+//     void limit( float max ) {
+
+
+//         if ( this.mag() > max ) {
+//             this.normalize();
+//             this.mult(max);
+//         }
+//     }
+
+//     PVector random2D() {
+//         PVector v = new PVector( random(0, width), random(0, height) );
+//         return v;
+//         // return new PVector( random(0, width), random(0, height) );
+//     }
+
+// }
 
 
 
