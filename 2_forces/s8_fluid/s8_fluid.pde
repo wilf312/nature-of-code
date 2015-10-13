@@ -18,8 +18,10 @@ void setup () {
 
     liquid = new Liquid(0, height/2, width, height/2, 0.1);
 
+    float size = 5;
+
     for (int cnt=0; cnt<moverLen; cnt++) {
-        mover[cnt] = new Mover( random(0.2, 2) , random(0, width), random(0, height / 2));
+        mover[cnt] = new Mover( size , random(0, width), random(0, height / 2));
     }
 }
 
@@ -28,7 +30,6 @@ void setup () {
 void draw() {
     // リセット処理
     background(255);
-
 
     for (int cnt=0; cnt<moverLen; cnt++) {
 
