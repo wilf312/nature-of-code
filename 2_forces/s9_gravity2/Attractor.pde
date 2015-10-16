@@ -4,9 +4,10 @@ class Attractor {
     PVector location;
 
     Attractor() {
-        location = new PVector( int(random(0, width)) ,int(random(0, height)) );
-        mass = 1;
-        G = 1;
+        // location = new PVector( int(random(0, width)) ,int(random(0, height)) );
+        location = new PVector( width/2 , height/2 );
+        mass = 20;
+        G = 0.4;
 
     }
 
@@ -20,7 +21,7 @@ class Attractor {
 
         force.normalize();
 
-        float strength = (G * mass * m.mass) / (distance * distance);
+        float strength = (G * mass * m.mass) / (distance * distance) * 0.2;
 
         return force;
     }

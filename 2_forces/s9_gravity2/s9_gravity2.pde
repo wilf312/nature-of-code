@@ -5,7 +5,7 @@ int stageSize = 500;
 int stageWid = stageSize;
 int stageHei = stageSize;
 
-int moverLen = 100;
+int moverLen = 10;
 Mover[] mover = new Mover[moverLen];
 Attractor a;
 Attractor b;
@@ -19,8 +19,8 @@ void setup () {
     // Attractor生成
     a = new Attractor();
 
-    // Attractor生成
-    b = new Attractor();
+    // // Attractor生成
+    // b = new Attractor();
 
     reset();
 
@@ -33,7 +33,7 @@ void reset() {
     // Mover生成
     float size = 1;
     for (int cnt=0; cnt<moverLen; cnt++) {
-        mover[cnt] = new Mover( random( size * 0.4 , size * 2.4 ) , random(0, width), random(0, height / 2));
+        mover[cnt] = new Mover( 0.2 , random(0, width), random(0, height / 2));
     }
 
 }
@@ -42,16 +42,17 @@ void reset() {
 
 
 void draw() {
-    // リセット処理
-    background(255);
+    // // リセット処理
+    // background(255);
 
     // Attractorオブジェクトの表示
     a.display();
     // Attractorオブジェクトの表示
-    b.display();
+    // b.display();
 
     if (mousePressed) {
         reset();
+        background(255);
     }
 
     for (int cnt=0; cnt<moverLen; cnt++) {
@@ -59,9 +60,9 @@ void draw() {
         Mover m = mover[cnt];
         // 重力の処理
         PVector f1 = a.attract(m);
-        PVector f2 = b.attract(m);
         m.applyForce(f1);
-        m.applyForce(f2);
+        // PVector f2 = b.attract(m);
+        // m.applyForce(f2);
 
 
         m.update();
