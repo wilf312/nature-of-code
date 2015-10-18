@@ -5,61 +5,33 @@ int stageSize = 500;
 int stageWid = stageSize;
 int stageHei = stageSize;
 
-float angle = 5;
-float aVelocity = 0;
-float aAcceleration = 0.001;
+Mover[] m;
+int moverLen = 8;
 
 void setup () {
     //config
     size(stageWid, stageHei);
+    float sizex = 300.0;
+    float sizey = 30.0;
+    int pointx = 50;
+    int pointy = 50;
+    float rad = 360.0 / moverLen;
 
-    background(255);
+    m = new Mover[moverLen];
 
-
-    pushMatrix();
-
-    // 移動
-    // translate(25, 25);
-
-    // 回転
-    rotate(angle);
-
-    // 拡縮
-    scale( 1.2 );
-
-    ellipse(25, 25, 10, 10);
-    ellipse(100, 25, 10, 10);
-    line(25, 25, 100, 25);
-
-    popMatrix();
-
+    for(int cnt=0; cnt<moverLen; cnt++) {
+        m[cnt] = new Mover( sizex,sizey,pointx,pointy, radians(rad * cnt) );
+    }
 }
 
 
 
 void draw () {
+
     background(255);
 
-
-    pushMatrix();
-
-    // 移動
-    translate(150, 150);
-
-    // 回転
-    rotate( angle );
-
-    // 拡縮
-    scale( 1.2 );
-
-    ellipse(25, 25, 10, 10);
-    ellipse(100, 25, 10, 10);
-    line(25, 25, 100, 25);
-
-    popMatrix();
-
-
-    aVelocity += aAcceleration;
-    angle += aVelocity;
+    for(int cnt=0; cnt<m.length;cnt++) {
+        m[cnt].display();
+    }
 
 }
