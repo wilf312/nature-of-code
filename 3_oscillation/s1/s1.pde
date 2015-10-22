@@ -13,8 +13,8 @@ void setup () {
     size(stageWid, stageHei);
     float sizex = 300.0;
     float sizey = 30.0;
-    int pointx = 50;
-    int pointy = 50;
+    int pointx = int(random(0, width));
+    int pointy = int(random(0, height));
     float rad = 360.0 / moverLen;
 
     m = new Mover[moverLen];
